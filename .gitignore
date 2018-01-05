@@ -1,0 +1,4 @@
+.idea/
+.miniappcache
+dist/
+node_modules/
