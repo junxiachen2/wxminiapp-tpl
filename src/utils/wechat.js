@@ -69,7 +69,7 @@ wxPromise.getUserInfo = () => {
             },
             fail(res){
                 console.log('获取用户信息失败')
-                //wxPromise.getUserInfo()
+                wxPromise.getUserInfo()
             }
         })
     })
