@@ -29,6 +29,22 @@ wxPromise.login = () => {
     })
 }
 
+//调起客户端小程序设置界面
+wxPromise.openSetting = () => {
+    return new Promise((resolve, reject) => {
+        wx.openSetting({
+            success(res){
+                console.log('用户授权情况', res)
+                resolve(res)
+            },
+            fail(){
+                reject()
+            }
+        })
+    })
+}
+
+//获取用户的当前授权信息,若无权限则请求授权
 wxPromise.getAuthorize = (setting) => {
     return new Promise((resolve, reject) => {
         wx.getSetting({
@@ -117,4 +133,25 @@ wxStorage.setStorage = (key, value)=> {
     }
 }
 
-module.exports = {wxPromise, wxStorage}
+let wxModal = (obj)=> {
+    return new Promise((resolve, reject) => {
+        wx.showModal({
+            title: obj.title || '提示',
+            content: obj.content || '这是一个模态弹窗',
+            success(res) {
+                if (res.confirm) {
+                    resolve(true)
+                } else if (res.cancel) {
+                    resolve(false)
+                }
+            },
+            fail(){
+                resolve(false)
+            }
+        })
+    })
+}
+
+module.exports = {
+    wxPromise, wxStorage, wxModal
+}

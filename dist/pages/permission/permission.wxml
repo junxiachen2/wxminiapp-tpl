@@ -1,0 +1,4 @@
+<view class="wrapper">
+    <view class="text">授权后才能正常使用小程序</view>
+    <button class="btn" type="primary" open-type="getUserInfo" bindgetuserinfo="_getUserInfo">点击授权</button>
+</view>
