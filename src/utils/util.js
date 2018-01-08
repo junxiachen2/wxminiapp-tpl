@@ -16,6 +16,7 @@ const initApp = async (app) => {
             wx.redirectTo({
                 url: '../permission/permission'
             })
+            return
         }
 
         //获取录音授权

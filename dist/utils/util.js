@@ -20,6 +20,7 @@ var initApp = async function initApp(app) {
             wx.redirectTo({
                 url: '../permission/permission'
             });
+            return;
         }
 
         var recordAuth = await _wechat.wxPromise.getAuthorize('scope.record');
