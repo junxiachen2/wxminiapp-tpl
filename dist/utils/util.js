@@ -28,10 +28,11 @@ var initApp = async function initApp(app) {
             if (recordAuthAgain) {
                 var auth = await _wechat.wxPromise.openSetting();
 
-                if (auth.authSetting['scope.userInfo']) {
+                if (!auth.authSetting['scope.userInfo']) {
                     wx.redirectTo({
                         url: '../permission/permission'
                     });
+                    return;
                 }
             }
         }

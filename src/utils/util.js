@@ -26,10 +26,11 @@ const initApp = async (app) => {
             if (recordAuthAgain) {
                 let auth = await wxPromise.openSetting()
                 //防止用户在设置界面取消信息授权
-                if (auth.authSetting['scope.userInfo']) {
+                if (!auth.authSetting['scope.userInfo']) {
                     wx.redirectTo({
                         url: '../permission/permission'
                     })
+                    return
                 }
             }
         }
