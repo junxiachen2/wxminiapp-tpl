@@ -1,6 +1,6 @@
 'use strict';
 
-var _util = require('../../utils/util');
+var _service = require('../../utils/service');
 
 var app = getApp();
 Page({

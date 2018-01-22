@@ -1,7 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 var wxPromise = {};
-var wxStorage = {};
 wxPromise.checkSession = function () {
     return new Promise(function (resolve, reject) {
         wx.checkSession({
@@ -74,17 +76,17 @@ wxPromise.getAuthorize = function (setting) {
     });
 };
 
-wxPromise.getUserInfo = function () {
+wxPromise.getUserInfo = function (withCredentials) {
     return new Promise(function (resolve, reject) {
         wx.getUserInfo({
-            withCredentials: true,
+            withCredentials: withCredentials || true,
             success: function success(res) {
                 console.log('获取用户信息成功', res);
                 resolve(res);
             },
             fail: function fail(res) {
                 console.log('获取用户信息失败');
-                wxPromise.getUserInfo();
+                wxPromise.getUserInfo(withCredentials);
             }
         });
     });
@@ -93,11 +95,12 @@ wxPromise.getUserInfo = function () {
 wxPromise.request = function (requestHandler) {
     return new Promise(function (resolve, reject) {
         if (requestHandler.loading) {
-            wx.showLoading({ title: "loading", mask: true });
+            wx.showLoading({ title: "加载中", mask: true });
         }
         wx.request({
             url: requestHandler.url,
             method: requestHandler.method || 'GET',
+            header: requestHandler.header || {},
             data: requestHandler.params,
             success: function success(res) {
                 resolve(res);
@@ -107,48 +110,11 @@ wxPromise.request = function (requestHandler) {
             },
             complete: function complete() {
                 if (requestHandler.loading) {
-                    wx.showLoading({ title: "loading", mask: true });
+                    wx.hideLoading();
                 }
             }
         });
     });
 };
 
-wxStorage.getStorage = function (key) {
-    try {
-        return wx.getStorageSync(key);
-    } catch (e) {
-        return asyncWx.getStorage(key);
-    }
-};
-
-wxStorage.setStorage = function (key, value) {
-    try {
-        var version = wx.setStorageSync(key, value);
-    } catch (e) {
-        return wx.setStorageSync(key, value);
-    }
-};
-
-var wxModal = function wxModal(obj) {
-    return new Promise(function (resolve, reject) {
-        wx.showModal({
-            title: obj.title || '提示',
-            content: obj.content || '这是一个模态弹窗',
-            success: function success(res) {
-                if (res.confirm) {
-                    resolve(true);
-                } else if (res.cancel) {
-                    resolve(false);
-                }
-            },
-            fail: function fail() {
-                resolve(false);
-            }
-        });
-    });
-};
-
-module.exports = {
-    wxPromise: wxPromise, wxStorage: wxStorage, wxModal: wxModal
-};
+exports.default = wxPromise;

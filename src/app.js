@@ -1,4 +1,4 @@
-import { initApp } from "./utils/util"
+import { initApp } from "./utils/service"
 
 //app.js
 App({

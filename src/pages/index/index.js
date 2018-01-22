@@ -1,4 +1,4 @@
-import {wxRequest} from '../../utils/util'
+import {wxRequest} from '../../utils/service'
 
 const app = getApp()
 Page({

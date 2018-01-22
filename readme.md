@@ -9,7 +9,7 @@
 │   ├── app.wxss
 │   ├── pages
 │   │   ├── index
-│   │   │   ├── index.js
+│   │   │   ├── service.js
 │   │   │   ├── index.wxml
 │   │   │   └── index.wxss
 │   │   └── permission
@@ -21,7 +21,7 @@
 │   └── utils
 │       ├── api.js
 │       ├── runtime.js
-│       ├── util.js
+│       ├── service.js
 │       └── wechat.js
 ├── package.json
 ├── readme.md
@@ -31,7 +31,7 @@
     ├── app.wxss
     ├── pages
     │   ├── index
-    │   │   ├── index.js
+    │   │   ├── service.js
     │   │   ├── index.scss
     │   │   └── index.wxml
     │   └── permission
@@ -43,6 +43,6 @@
     └── utils
         ├── api.js
         ├── runtime.js
-        ├── util.js
+        ├── service.js
         └── wechat.js
 `````

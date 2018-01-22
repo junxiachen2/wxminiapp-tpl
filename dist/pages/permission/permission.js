@@ -1,12 +1,12 @@
 'use strict';
 
-var _util = require('../../utils/util');
+var _service = require('../../utils/service');
 
 var app = getApp();
 Page({
     _getUserInfo: function _getUserInfo(e) {
         if (e.detail.rawData) {
-            (0, _util.initApp)(app);
+            (0, _service.initApp)(app);
             wx.redirectTo({ url: '../index/index' });
         }
     }

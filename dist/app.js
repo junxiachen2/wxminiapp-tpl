@@ -1,10 +1,10 @@
 "use strict";
 
-var _util = require("./utils/util");
+var _service = require("./utils/service");
 
 App({
   onLaunch: function onLaunch() {
-    (0, _util.initApp)(this);
+    (0, _service.initApp)(this);
   },
 
   globalData: {

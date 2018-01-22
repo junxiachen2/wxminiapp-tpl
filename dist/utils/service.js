@@ -6,16 +6,18 @@ var _runtime2 = _interopRequireDefault(_runtime);
 
 var _wechat = require("./wechat");
 
+var _wechat2 = _interopRequireDefault(_wechat);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var initApp = async function initApp(app) {
     try {
-        var session = await _wechat.wxPromise.checkSession();
+        var session = await _wechat2.default.checkSession();
         if (!session) {
-            await _wechat.wxPromise.login();
+            await _wechat2.default.login();
         }
 
-        var userInfoAuth = await _wechat.wxPromise.getAuthorize('scope.userInfo');
+        var userInfoAuth = await _wechat2.default.getAuthorize('scope.userInfo');
         if (!userInfoAuth) {
             wx.redirectTo({
                 url: '../permission/permission'
@@ -23,22 +25,7 @@ var initApp = async function initApp(app) {
             return;
         }
 
-        var recordAuth = await _wechat.wxPromise.getAuthorize('scope.record');
-        if (!recordAuth) {
-            var recordAuthAgain = await (0, _wechat.wxModal)({ content: '需要授权录音才能抢红包哦~去授权~' });
-            if (recordAuthAgain) {
-                var auth = await _wechat.wxPromise.openSetting();
-
-                if (!auth.authSetting['scope.userInfo']) {
-                    wx.redirectTo({
-                        url: '../permission/permission'
-                    });
-                    return;
-                }
-            }
-        }
-
-        var info = await _wechat.wxPromise.getUserInfo();
+        var info = await _wechat2.default.getUserInfo();
         app.globalData.userInfo = info.userInfo;
         if (app.userInfoReadyCallback) {
             app.userInfoReadyCallback(info);
@@ -50,10 +37,10 @@ var initApp = async function initApp(app) {
 
 var wxRequest = async function wxRequest(requestHandler) {
     return new Promise(function (resolve, reject) {
-        _wechat.wxPromise.request(requestHandler).then(function (res) {
+        _wechat2.default.request(requestHandler).then(function (res) {
             resolve(res);
         }, function () {
-            wx.showModal({
+            _wechat2.default.showModal({
                 title: '提示',
                 content: '网络好像出问题了,再试下吧~'
             });

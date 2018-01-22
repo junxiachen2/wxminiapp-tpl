@@ -1,5 +1,4 @@
 let wxPromise = {}
-let wxStorage = {}
 wxPromise.checkSession = () => {
     return new Promise((resolve, reject) => {
         wx.checkSession({
@@ -75,30 +74,42 @@ wxPromise.getAuthorize = (setting) => {
 }
 
 // 用户授权后获取用户信息
-wxPromise.getUserInfo = () => {
+wxPromise.getUserInfo = (withCredentials) => {
     return new Promise((resolve, reject) => {
         wx.getUserInfo({
-            withCredentials: true,
+            withCredentials: withCredentials || true,
             success(res){
                 console.log('获取用户信息成功', res)
                 resolve(res)
             },
             fail(res){
                 console.log('获取用户信息失败')
-                wxPromise.getUserInfo()
+                wxPromise.getUserInfo(withCredentials)
             }
         })
     })
 }
 
+/**
+ * wx请求函数
+ * @param requestHandler
+ * requestHandler是个对象,其中包括:
+ *      url,
+ *      method,
+ *      params,
+ *      header
+ *
+ * @returns {Promise}
+ */
 wxPromise.request = (requestHandler)=> {
     return new Promise((resolve, reject) => {
         if (requestHandler.loading) {
-            wx.showLoading({title: "loading", mask: true})
+            wx.showLoading({title: "加载中", mask: true})
         }
         wx.request({
             url: requestHandler.url,
             method: requestHandler.method || 'GET',
+            header: requestHandler.header || {},
             data: requestHandler.params,
             success(res) {
                 resolve(res)
@@ -108,50 +119,11 @@ wxPromise.request = (requestHandler)=> {
             },
             complete(){
                 if (requestHandler.loading) {
-                    wx.showLoading({title: "loading", mask: true})
+                    wx.hideLoading()
                 }
             }
         })
     })
 }
 
-wxStorage.getStorage = (key)=> {
-    try {
-        return wx.getStorageSync(key)
-    }
-    catch (e) {
-        return asyncWx.getStorage(key)
-    }
-}
-
-wxStorage.setStorage = (key, value)=> {
-    try {
-        let version = wx.setStorageSync(key, value)
-    }
-    catch (e) {
-        return wx.setStorageSync(key, value)
-    }
-}
-
-let wxModal = (obj)=> {
-    return new Promise((resolve, reject) => {
-        wx.showModal({
-            title: obj.title || '提示',
-            content: obj.content || '这是一个模态弹窗',
-            success(res) {
-                if (res.confirm) {
-                    resolve(true)
-                } else if (res.cancel) {
-                    resolve(false)
-                }
-            },
-            fail(){
-                resolve(false)
-            }
-        })
-    })
-}
-
-module.exports = {
-    wxPromise, wxStorage, wxModal
-}
+export default wxPromise

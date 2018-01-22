@@ -1,7 +1,7 @@
 import regeneratorRuntime from "./runtime"
-import {wxPromise,wxModal} from "./wechat"
+import wxPromise from "./wechat"
 
-const initApp = async (app) => {
+const initApp = async(app) => {
 
     // 获取登录状态
     try {
@@ -17,23 +17,6 @@ const initApp = async (app) => {
                 url: '../permission/permission'
             })
             return
-        }
-
-        //获取录音授权
-        let recordAuth = await wxPromise.getAuthorize('scope.record')
-        if (!recordAuth) {
-            //同意重新授权录音,跳转到设置界面
-            let recordAuthAgain = await wxModal({content: '需要授权录音才能抢红包哦~去授权~'})
-            if (recordAuthAgain) {
-                let auth = await wxPromise.openSetting()
-                //防止用户在设置界面取消信息授权
-                if (!auth.authSetting['scope.userInfo']) {
-                    wx.redirectTo({
-                        url: '../permission/permission'
-                    })
-                    return
-                }
-            }
         }
 
         // 获取用户信息
@@ -54,7 +37,7 @@ const wxRequest = async(requestHandler) => {
             .then((res)=> {
                 resolve(res)
             }, ()=> {
-                wx.showModal({
+                wxPromise.showModal({
                     title: '提示',
                     content: '网络好像出问题了,再试下吧~'
                 })
