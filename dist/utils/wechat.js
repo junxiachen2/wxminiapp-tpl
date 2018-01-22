@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var wxPromise = {};
+
 wxPromise.checkSession = function () {
     return new Promise(function (resolve, reject) {
         wx.checkSession({

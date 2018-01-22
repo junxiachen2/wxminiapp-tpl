@@ -48,7 +48,4 @@ const wxRequest = async(requestHandler) => {
     })
 }
 
-module.exports = {
-    initApp,
-    wxRequest
-}
+export {initApp, wxRequest}

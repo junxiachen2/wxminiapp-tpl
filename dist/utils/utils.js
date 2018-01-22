@@ -3,8 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-
 var utils = {};
 
 utils.getStorage = function (key) {

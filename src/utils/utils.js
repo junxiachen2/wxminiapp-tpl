@@ -1,7 +1,3 @@
-/**
- * Created by junxiachen on 2018/1/22.
- */
-
 let utils = {}
 
 utils.getStorage = (key)=> {

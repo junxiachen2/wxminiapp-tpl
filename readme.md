@@ -4,25 +4,6 @@
 `````
 ├── config.json     //配置文件,可忽略
 ├── dist            //编译后文件目录
-│   ├── app.js
-│   ├── app.json
-│   ├── app.wxss
-│   ├── pages
-│   │   ├── index
-│   │   │   ├── service.js
-│   │   │   ├── index.wxml
-│   │   │   └── index.wxss
-│   │   └── permission
-│   │       ├── permission.js
-│   │       ├── permission.json
-│   │       ├── permission.wxml
-│   │       └── permission.wxss
-│   ├── project.config.json
-│   └── utils
-│       ├── api.js
-│       ├── runtime.js
-│       ├── service.js
-│       └── wechat.js
 ├── package.json
 ├── readme.md
 └── src             //开发文件目录
@@ -31,7 +12,7 @@
     ├── app.wxss
     ├── pages
     │   ├── index
-    │   │   ├── service.js
+    │   │   ├── index.js
     │   │   ├── index.scss
     │   │   └── index.wxml
     │   └── permission
@@ -44,5 +25,6 @@
         ├── api.js
         ├── runtime.js
         ├── service.js
+        ├── utils.js
         └── wechat.js
 `````

@@ -1,5 +1,10 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.wxRequest = exports.initApp = undefined;
+
 var _runtime = require("./runtime");
 
 var _runtime2 = _interopRequireDefault(_runtime);
@@ -50,7 +55,5 @@ var wxRequest = async function wxRequest(requestHandler) {
     });
 };
 
-module.exports = {
-    initApp: initApp,
-    wxRequest: wxRequest
-};
+exports.initApp = initApp;
+exports.wxRequest = wxRequest;

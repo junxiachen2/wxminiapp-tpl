@@ -1,4 +1,5 @@
 let wxPromise = {}
+
 wxPromise.checkSession = () => {
     return new Promise((resolve, reject) => {
         wx.checkSession({
